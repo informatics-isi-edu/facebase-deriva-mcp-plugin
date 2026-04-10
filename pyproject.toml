@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "facebase-deriva-mcp-plugin"
+version = "0.1.0"
+description = "FaceBase plugin for the deriva-mcp-core MCP server"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+authors = [
+    { name = "Informatics and Scientific Research Division, USC" }
+]
+keywords = ["mcp", "deriva", "facebase", "craniofacial"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "deriva-mcp-core>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "pytest-cov>=5.0",
+]
+
+[project.entry-points."deriva_mcp.plugins"]
+facebase = "facebase_deriva_mcp_plugin.plugin:register"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/facebase_deriva_mcp_plugin"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "W"]
+ignore = ["E402", "E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "-vv -r w --tb=short --disable-warnings --cov=facebase_deriva_mcp_plugin --cov-report=term-missing"
+filterwarnings = [
+  "always"
+]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/facebase_deriva_mcp_plugin"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+]

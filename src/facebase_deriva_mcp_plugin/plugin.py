@@ -64,6 +64,7 @@ def register(ctx: PluginContext) -> None:
         hostname=hostname,
         catalog_id=catalog_id,
         limit=max_records,
+        auto_enrich=True,
     )
 
     # ------------------------------------------------------------------

@@ -38,6 +38,11 @@ dev = [
 [project.entry-points."deriva_mcp.plugins"]
 facebase = "facebase_deriva_mcp_plugin.plugin:register"
 
+# Local dev only -- requires sibling deriva-mcp-core checkout.
+# pip install ignores this section; future CI will need to clone both repos.
+[tool.uv.sources]
+deriva-mcp-core = { path = "../deriva-mcp-core", editable = true }
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/facebase_deriva_mcp_plugin"]
 

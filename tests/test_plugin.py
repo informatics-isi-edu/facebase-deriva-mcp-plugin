@@ -97,6 +97,12 @@ def test_dataset_indexer_enricher_is_enrich_dataset(ctx):
     assert idx["enricher"] is enrich_dataset
 
 
+def test_dataset_indexer_auto_enrich_enabled(ctx):
+    register(ctx)
+    idx = ctx.dataset_indexers[0]
+    assert idx.get("auto_enrich") is True
+
+
 # ---------------------------------------------------------------------------
 # Prompt registration
 # ---------------------------------------------------------------------------

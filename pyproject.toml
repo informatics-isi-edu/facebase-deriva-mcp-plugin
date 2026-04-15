@@ -38,8 +38,12 @@ dev = [
 [project.entry-points."deriva_mcp.plugins"]
 facebase = "facebase_deriva_mcp_plugin.plugin:register"
 
-# Local dev only -- requires sibling deriva-mcp-core checkout.
-# pip install ignores this section; future CI will need to clone both repos.
+# Local dev only -- requires sibling deriva-mcp-core checkout at ../deriva-mcp-core.
+# pip install ignores this section, but uv pip install reads it and will fail if
+# the sibling checkout is absent (e.g. inside a Docker build or a standalone clone).
+# When installing from a git URL or any context without the sibling layout, pass
+# --no-sources to uv pip install so it resolves deriva-mcp-core from PyPI instead:
+#   uv pip install --no-sources facebase-deriva-mcp-plugin@git+https://...
 [tool.uv.sources]
 deriva-mcp-core = { path = "../deriva-mcp-core", editable = true }
 

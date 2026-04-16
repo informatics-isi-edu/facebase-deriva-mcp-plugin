@@ -31,6 +31,24 @@ def register(ctx: PluginContext, hostname: str = "www.facebase.org") -> None:
             f"Use the available DERIVA tools to query the catalog and the RAG search tool "
             f"to find semantically relevant datasets. Always include dataset RIDs and accession "
             f"numbers in your responses so researchers can locate records directly."
+            
+            """ADDITIONAL INSTRUCTIONS:
+            1. Answer questions using PRIMARILY the provided FaceBase context, 
+                but it is acceptable to fall back on your own knowledge if a question is 
+                about a more general, but related topic
+            2. For technical/medical terms, provide clear definitions from the context
+            3. Organize information logically with proper structure
+            4. If the context has partial information, synthesize what's available
+            5. Be specific - include dataset DOIs, IDs, RIDs, or specific data when mentioned
+            6. If information is insufficient, clearly state what's missing
+            7. Cite sources naturally (e.g., "According to dataset FB00001234...")
+    
+            CONTEXT USAGE:
+            - Prioritize sources with higher relevance scores
+            - Cross-reference multiple sources when they discuss the same topic
+            - Extract specific facts: anatomical terms, genes, species, methods
+            - Include relevant technical details and identifiers
+            """
         )
 
     @ctx.prompt(name="find-datasets")
@@ -48,9 +66,10 @@ def register(ctx: PluginContext, hostname: str = "www.facebase.org") -> None:
             f"   metadata for the most promising candidates.\n"
             f"3. For each relevant dataset, report: RID, accession, title, description summary, "
             f"   project, consortium, species, anatomy, phenotype, and experiment type.\n"
-            f"4. If the topic names a specific anatomy term, gene, syndrome, or phenotype, "
-            f"   also try querying through the corresponding vocabulary table "
-            f"   (e.g. vocab:anatomy, vocab:gene) to find exact controlled-vocabulary matches.\n\n"
+            f"4. STOP: IMPORTANT: If the topic names a specific anatomy term, gene, syndrome, or phenotype, "
+            f"   also try querying through foreign key relations via query_attribute to the corresponding vocabulary "
+            f"   table (e.g. vocab:anatomy, vocab:gene) to find exact controlled-vocabulary matches. "
+            f"   Only use regex matching as a fallback.\n\n"
             f"Present results as a ranked list with the most relevant datasets first."
         )
 

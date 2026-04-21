@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 
 _DEFAULT_HOSTNAME = "www.facebase.org"
 _DEFAULT_CATALOG_ID = "1"
-_DEFAULT_MAX_INDEXED_WEB_PAGES = 300
+_DEFAULT_MAX_INDEXED_WEB_PAGES = 400
 
 
 def register(ctx: PluginContext) -> None:
